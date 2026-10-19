@@ -1,49 +1,40 @@
-# Todos – Node.js Server
+# ToDo List – Minimal API
 
-A **Node.js + Express** REST API for managing users and their tasks, with **JWT** authentication and JSON-file storage.
+A task management application with a **React** client and an **ASP.NET Core Minimal API** server (.NET 9), using **MySQL** and **JWT** authentication.
 
 ## Features
 
-- Users – add, login, list, update and delete
-- Tasks – list all, get by id, get by user, add, update and delete
-- JWT authentication middleware that protects every route except login and registration
-- Data stored in JSON files – no database setup needed
+- Create, update, complete and delete tasks
+- User registration and login with a JWT token
+- Swagger UI for exploring the API
+- CORS configured for the React client
 
-## Project Structure
+## Tech Stack
 
-```
-app.js        # Express app, CORS, JSON parsing and the JWT middleware
-routers/      # userRouter, todoRouter
-actions/      # Business logic for users and tasks, JWT helpers
-db/           # JSON data file and the read/write queries
-```
+- ASP.NET Core Minimal API (.NET 9)
+- Entity Framework Core with Pomelo MySQL provider, and Dapper for queries
+- JWT Bearer authentication
+- MySQL
+- React client
 
 ## API
 
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/user/login` | Login – returns a JWT |
-| POST | `/user/add` | Add a user |
-| GET | `/user/all` | All users |
-| GET | `/user/:id` | User by id |
-| PUT | `/user/update/:id` | Update a user |
-| DELETE | `/user/delete/:id` | Delete a user |
-| GET | `/todo/all` | All tasks |
-| GET | `/todo/:id` | Task by id |
-| GET | `/todo/byUserId/:id` | Tasks of a user |
-| POST | `/todo/add` | Add a task |
-| PUT | `/todo/update/:id` | Update a task |
-| DELETE | `/todo/delete/:id` | Delete a task |
-
-Protected routes expect the token in the `Authorization` header.
-
-## Tech Stack
-
-Node.js, Express, jsonwebtoken, CORS, nodemon
+| GET | `/` | All tasks |
+| POST | `/` | Add a task |
+| PUT | `/{id}` | Update a task |
+| PUT | `/{id}/{isComplete}` | Mark a task as complete / not complete |
+| DELETE | `/{id}` | Delete a task |
+| POST | `/register` | Register |
+| POST | `/login` | Login – returns a JWT |
 
 ## Getting Started
 
-```bash
-npm install
-node app.js
-```
+1. Create a MySQL database named `tododb`.
+2. Update the connection string `ToDoDB` in `ServerSide/appsettings.json`.
+3. Run the server:
+   ```bash
+   cd ServerSide
+   dotnet run
+   ```
